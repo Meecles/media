@@ -1,0 +1,58 @@
+{% extends "v2/modules/base.html" %}
+{% block style %}
+    <style>
+        .thumb {
+            width: 200px;
+            height: 300px;
+            object-fit: contain;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <header>
+        <div class="row">
+            <div class="col-4">
+                <span class="symbol"></span><span class="title"><h2>Movies</h2></span>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <input type="text" id="search" placeholder="Search..."/>
+            </div>
+        </div>
+    </header>
+    <section class="tiles">
+        <article class="style1">
+            <span class="image">
+                <img class="thumb" src="/thumbs/zl_m.png" alt=""/>
+            </span>
+            <a href="generic.html">
+                <h2>Zombieland</h2>
+{#                <div class="content">#}
+{#                    <p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>#}
+{#                </div>#}
+            </a>
+        </article>
+        <article class="style1">
+            <span class="image">
+                <img class="thumb" src="/thumbs/dw_s.png" alt=""/>
+            </span>
+            <a href="generic.html">
+                <h2>Doctor Who</h2>
+                <div class="content">
+                    <p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
+                </div>
+            </a>
+        </article>
+        <article class="style1">
+            <span class="image">
+                <img class="thumb" src="/thumbs/default.png" alt=""/>
+            </span>
+            <a href="generic.html">
+                <h2>Magna</h2>
+                <div class="content">
+                    <p>Sed nisl arcu euismod sit amet nisi lorem etiam dolor veroeros et feugiat.</p>
+                </div>
+            </a>
+        </article>
+    </section>
+{% endblock %}

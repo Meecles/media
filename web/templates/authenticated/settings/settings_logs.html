@@ -1,0 +1,123 @@
+{% extends "/modules/base.html" %}
+{% block title %}Roles{% endblock %}
+{% block modals %}
+
+{% endblock %}
+{% block style %}
+    <style>
+        .sk-left {
+            transform: skew(20deg);
+        }
+
+        .sk-right {
+            transform: skew(-20deg);
+        }
+
+        .mgn {
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+
+        @-webkit-keyframes wiggle {
+            0% {
+                -webkit-transform: rotateZ(2deg);
+            }
+            50% {
+                -webkit-transform: rotateZ(-2deg);
+            }
+            100% {
+                -webkit-transform: rotateZ(2deg);
+            }
+        }
+
+        @-moz-keyframes wiggle {
+            0% {
+                -moz-transform: rotateZ(2deg);
+            }
+            50% {
+                -moz-transform: rotateZ(-2deg);
+            }
+            100% {
+                -moz-transform: rotateZ(2deg);
+            }
+        }
+
+        @-o-keyframes wiggle {
+            0% {
+                -o-transform: rotateZ(2deg);
+            }
+            50% {
+                -o-transform: rotateZ(-2deg);
+            }
+            100% {
+                -o-transform: rotateZ(2deg);
+            }
+        }
+
+        @keyframes wiggle {
+            0% {
+                transform: rotateZ(2deg);
+            }
+            50% {
+                transform: rotateZ(-2deg);
+            }
+            100% {
+                transform: rotateZ(2deg);
+            }
+        }
+
+        .wiggle {
+            -webkit-animation: wiggle 0.2s ease infinite;
+            -moz-animation: wiggle 0.2s ease infinite;
+            -o-animation: wiggle 0.2s ease infinite;
+            animation: wiggle 0.2s ease infinite;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <a href="/settings"><img src="/assets/img/icon-back.png"
+                                         style="cursor:pointer;width:30px;height:30px;z-index: 1;"/></a>
+            </div>
+            <div class="col-5"><h3 style="text-align: right;">Settings - Logs</h3></div>
+            <div class="col-1"></div>
+            <div class="col-4">
+                <input id="generic-search" type="text" class="form-control" placeholder="Search..." onkeyup="search()">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <button id="tab-metrics" class="mgn sk-right btn btn-info" onclick="tab('metrics')">
+                    <div class="sk-left" style="color: white;">Metrics</div>
+                </button>
+                <button id="tab-logins" class="mgn sk-right btn btn-outline-info" onclick="tab('logins')">
+                    <div class="sk-left" style="color: white;">Logins</div>
+                </button>
+                <button id="tab-videos" class="mgn sk-right btn btn-outline-info" onclick="tab('videos')">
+                    <div class="sk-left" style="color: white;">Videos</div>
+                </button>
+            </div>
+            <div class="col-4">
+
+            </div>
+        </div>
+        <hr/>
+    </div>
+    <hr/>
+    <div class="container">
+
+    </div>
+
+{% endblock %}
+
+
+{% block bottom_scripts %}
+    <script type="text/javascript">
+        function search() {
+
+        }
+    </script>
+{% endblock %}

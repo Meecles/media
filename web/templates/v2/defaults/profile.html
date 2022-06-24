@@ -1,0 +1,90 @@
+{% extends "v2/modules/base.html" %}
+{% block style %}
+    <style>
+        .thumb {
+            width: 200px;
+            height: 300px;
+            object-fit: contain;
+        }
+
+        .btn {
+            border-radius: 0;
+            letter-spacing: 0.09em;
+        }
+    </style>
+{% endblock %}
+{% block priority_scripts %}
+    <link rel="stylesheet" href="/assets/cdn/bootstrap.4.5.3.min.css">
+{% endblock %}
+{% block top_scripts %}
+
+    <script src="/assets/cdn/bootstrap.bundle.4.5.3.min.js"></script>
+{% endblock %}
+{% block bottom_scripts %}
+    <script type="text/javascript" src="/assets/js/qrcode.js"></script>
+    <script type="text/javascript" src="/assets/v2/js/profile.js"></script>
+{% endblock %}
+{% block content %}
+    {% include "modals/profile/change_password.html" %}
+    {% include "modals/profile/enable_mfa.html" %}
+    {% include "modals/profile/disable_mfa.html" %}
+    <header>
+        <div class="row">
+            <div class="col-4">
+                <span class="symbol"></span><span class="title"><h3>Profile</h3></span>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                &nbsp;
+            </div>
+        </div>
+    </header>
+    <div class="row">
+        <div class="col-sm-1 col-1 col-md-3"></div>
+        <div class="col-sm-10 col-10 col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold" style="text-align: center;">Account</h6>
+                </div>
+                <div class="card-body">
+                    Username: <input class="form-control text-display" type="text" placeholder="{{ info.username }}"
+                                     readonly>
+                    <br/>
+                    Roles: <input class="form-control text-display" type="text"
+                                  placeholder="{% for role in info.roles %}{{ role }} {% endfor %}" readonly>
+                    <br/>
+                    <button type="button" class="btn btn-outline-primary btn-user btn-block shadow-lg profile-buttons"
+                            onClick="init_change_password()">
+                        Change Password
+                    </button>
+
+                    {% if info.mfa_enabled %}
+                        <button type="button" class="btn btn-outline-secondary btn-user btn-block shadow-lg profile-buttons"
+                                onClick="init_disable_mfa()">
+                            Disable MFA
+                        </button>
+                    {% else %}
+                        <button type="button" class="btn btn-outline-primary btn-user btn-block shadow-lg profile-buttons"
+                                onClick="init_enable_mfa()">
+                            Enable MFA
+                        </button>
+                    {% endif %}
+                    {% if "profile.mfa.pause" in info.perms %}
+                        <button type="button" id="pause-mfa-btn" style="width: 250px;"
+                                class="btn btn-danger btn-user btn-block shadow-lg profile-buttons"
+                                onClick="pause_mfa()">
+                            {% if info.mfa_paused %}
+                                MFA Paused Until {{ info.mfa_pause_time }}
+                            {% else %}
+                                Pause MFA
+                            {% endif %}
+                        </button>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1 col-1 col-md-3"></div>
+    </div>
+
+{% endblock %}

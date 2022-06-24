@@ -1,0 +1,61 @@
+.btn {
+    border-radius: 0;
+    letter-spacing: 0.09em;
+    max-height: 40%;
+}
+
+.btn2 {
+    max-height: 70%;
+}
+
+.txt {
+    color: #c9c9c9;
+    font-size: larger;
+}
+
+.sq {
+    border-radius: 0;
+}
+
+.mgn {
+    margin-bottom: -2%;
+    margin-top: 12px;
+}
+
+.mgn2 {
+    margin-bottom: 3px;
+    margin-top: 4px;
+    color: #585858;
+}
+
+.rw {
+    margin-top: 7px;
+}
+
+.card {
+    cursor: pointer;
+}
+
+.squash-40 {
+    max-height: 40%;
+}
+
+@media (max-width: 999.98px) {
+    .DesktopShowClass {
+        display: none;
+    }
+
+    .MobileShowClass {
+        display: initial;
+    }
+}
+
+@media (min-width: 1000px) {
+    .DesktopShowClass {
+        display: initial;
+    }
+
+    .MobileShowClass {
+        display: none;
+    }
+}

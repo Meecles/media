@@ -1,0 +1,64 @@
+<html>
+<head>
+    <title>Watch</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/darkly.css">
+<!--    <script type="text/javascript" src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+</head>
+<body style="background-color: #444444;">
+<style>
+    .video {
+        width: 100%;
+        height: auto;
+        max-height: 100%
+    }
+
+    .video-content {
+        height: 85vh;
+    }
+</style>
+<div class="card">
+    <div class="card-header">
+        <table style="width:100%;">
+            <tr>
+                <td style="width:45%;">
+                    <a href="{{ back_link }}"><img src="/assets/img/icon-back.png"
+                                                   style="cursor:pointer;width:30px;height:30px"/></a>
+                </td>
+                <td style="text-align: left;">
+                    {% if tp == "movie" %}
+                        {{ movie_name }}
+                    {% endif %}
+                    {% if tp == "tv" %}
+                        Episode {{ episode["episode"] }} - {{ episode["name"] }}
+                    {% endif %}
+                </td>
+                <td style="text-align: right; margin-left: auto;">
+                    {% if tp == "movie" %}
+                        <a href='/stream/movie/{{ idv }}'>Download</a>
+                    {% endif %}
+                    {% if tp == "tv" %}
+                        <a href='/stream/tv/{{ show_id }}/{{ idv }}'>Download</a>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="card-body" style="background-color: #000000;">
+        <blockquote class="blockquote mb-0">
+            <div class="video-content">
+                <video id="video-box" class="video" controls autoplay>
+                    {% if tp == "movie" %}
+                        <source src='/stream/movie/{{ idv }}' type='video/mp4'>
+                    {% endif %}
+                    {% if tp == "tv" %}
+                        <source src='/stream/tv/{{ show_id }}/{{ idv }}' type='video/mp4'>
+                    {% endif %}
+                </video>
+            </div>
+
+        </blockquote>
+    </div>
+</div>
+
+</body>
+</html>

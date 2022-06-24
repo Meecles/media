@@ -1,0 +1,33 @@
+{% extends "v2/modules/base.html" %}
+{% block style %}
+    <style>
+        .thumb {
+            width: 200px;
+            height: 300px;
+            object-fit: contain;
+        }
+
+        .btn {
+            border-radius: 0;
+        }
+    </style>
+{% endblock %}
+{% block priority_scripts %}
+    <link rel="stylesheet" href="/assets/cdn/bootstrap.4.5.3.min.css">
+{% endblock %}
+{% block top_scripts %}
+    <script type="text/javascript" src="/assets/js/unveil.js"></script>
+    <script src="/assets/cdn/bootstrap.bundle.4.5.3.min.js"></script>
+{% endblock %}
+
+{% block content %}
+    <header>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <span class="symbol"></span><span class="title"><h1>404 - Not Found</h1></span>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </header>
+{% endblock %}

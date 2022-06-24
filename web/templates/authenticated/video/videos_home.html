@@ -1,0 +1,68 @@
+{% extends "/modules/base.html" %}
+{% block style %}
+<style>
+    .center-img {
+        width: 100px;
+        height: 70px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    .center-txt {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+<!--    <h1 class="mt-4 mb-3">-->
+<!--                <small><a href="/"><img src="/assets/img/icon-back.png"-->
+<!--                                        style="cursor:pointer;width:30px;height:30px;z-index: 1;"/></a></small>-->
+<!--            </h1>-->
+    <hr/>
+</div>
+
+<div class="row">
+    {% if "*" in info.perms or "access.videos" in info.perms or "access.movies" in info.perms %}
+    <div class="col-lg-2 col-sm-7 col-md-5 col-xl-2" style="margin: 30px;cursor: pointer;" onclick="goto('/movies')">
+        <div class="card" style="width: 10rem;">
+            <div class="card-body">
+                <h4 class="card-title center-txt">Movies</h4>
+                <img src="/assets/img/videos.png" class="center-img">
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if "*" in info.perms or "access.videos" in info.perms or "access.shows" in info.perms %}
+    <div class="col-lg-2 col-sm-7 col-md-5 col-xl-2" style="margin: 30px;cursor: pointer;" onclick="goto('/shows')">
+        <div class="card" style="width: 10rem;">
+            <div class="card-body">
+                <h4 class="card-title center-txt">TV Shows</h4>
+                <img src="/assets/img/shows.png" class="center-img">
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if "*" in info.perms or "access.videos" in info.perms or "access.youtube" in info.perms %}
+    <div class="col-lg-2 col-sm-7 col-md-5 col-xl-2" style="margin: 30px;cursor: pointer;" onclick="goto('/yt')">
+        <div class="card" style="width: 10rem;">
+            <div class="card-body">
+                <h4 class="card-title center-txt">YouTube</h4>
+                <img src="/assets/img/youtube.png" class="center-img">
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+{% block bottom_scripts %}
+<script type="text/javascript">
+    function goto(loc) {
+        window.location.href = loc;
+    }
+</script>
+{% endblock %}

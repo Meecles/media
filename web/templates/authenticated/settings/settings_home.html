@@ -1,0 +1,81 @@
+{% extends "/modules/base.html" %}
+{% block title %}Settings{% endblock %}
+{% block top_scripts %}
+    <script type="text/javascript" src="/assets/js/unveil.js"></script>
+{% endblock %}
+{% block style %}
+    <style>
+        .center-img {
+            max-width: 140px;
+            max-height: 320px;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        .center-txt {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-5"><h3 style="text-align: right;">Settings</h3></div>
+            <div class="col-1"></div>
+            <div class="col-4"></div>
+        </div>
+        <hr/>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 col-sm-7 col-md-5 col-xl-2" style="margin: 30px;cursor: pointer;"
+             onclick="goto('/settings/videos')">
+            <div class="card" style="width: 16rem;">
+                <div class="card-body">
+                    <h6 class="card-title center-txt">Video Content</h6>
+                    <img src="/assets/img/videos.png" class="center-img">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-sm-7 col-md-5 col-xl-2" style="margin: 30px;cursor: pointer;"
+             onclick="goto('/settings/users')">
+            <div class="card" style="width: 16rem;">
+                <div class="card-body">
+                    <h6 class="card-title center-txt">Users</h6>
+                    <img src="/assets/img/profile.png" class="center-img">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-sm-7 col-md-5 col-xl-2" style="margin: 30px;cursor: pointer;"
+             onclick="goto('/settings/roles')">
+            <div class="card" style="width: 16rem;">
+                <div class="card-body">
+                    <h6 class="card-title center-txt">Roles</h6>
+                    <img src="/assets/img/profile.png" class="center-img">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-sm-7 col-md-5 col-xl-2" style="margin: 30px;cursor: pointer;"
+             onclick="goto('/settings/logs')">
+            <div class="card" style="width: 16rem;">
+                <div class="card-body">
+                    <h6 class="card-title center-txt">Logs</h6>
+                    <img src="/assets/img/scroll.png" class="center-img">
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block bottom_scripts %}
+    <script type="text/javascript">
+        function goto(loc) {
+            window.location.href = loc;
+        }
+    </script>
+{% endblock %}

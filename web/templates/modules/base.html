@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Media{% endblock %}</title>
+    {% block libraries %}
+        <input id="csrf-token" type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <script src="/assets/cdn/jquery.3.5.1.js"></script>
+        <script src="/assets/cdn/popper.1.12.9.min.js"></script>
+        <script src="/assets/cdn/bootstrap.4.5.0.min.js"></script>
+        <link rel="stylesheet" href="/assets/cdn/bootstrap.4.5.0.min.css">
+    {% endblock %}
+    {% block extra_libraries %}{% endblock %}
+    <script type="text/javascript">
+        function uuidv4() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        const base_nav_active = "{% block nav_active %}{% endblock %}"
+    </script>
+    {% block top_scripts %}
+    {% endblock %}
+    {% include "modules/base_style.html" %}
+    {% block style %}{% endblock %}
+</head>
+{% if theme %}
+    <body style="background-color: {{ theme.body_background }};">
+{% else %}
+    <body style="background-color: #243B53;">
+{% endif %}
+{% include "modules/nav.html" %}
+<div class="page-container content-wrap" style="margin-top: 100px;">
+    {% block content %}
+    {% endblock %}
+</div>
+
+{% block modals %}{% endblock %}
+
+{% block bottom_scripts %}
+{% endblock %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (base_nav_active.length > 0) {
+            $("#nav-" + base_nav_active).addClass("active")
+        }
+    })
+</script>
+
+</body>
+</html>

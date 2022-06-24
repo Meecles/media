@@ -1,0 +1,65 @@
+{% extends "v2/modules/base.html" %}
+{% block style %}
+    <link rel="stylesheet" href="/assets/v2/css/users.css">
+    <style>
+
+    </style>
+{% endblock %}
+{% block priority_scripts %}
+    <link rel="stylesheet" href="/assets/cdn/bootstrap.4.5.3.min.css">
+{% endblock %}
+{% block top_scripts %}
+    <script src="/assets/cdn/bootstrap.bundle.4.5.3.min.js"></script>
+    <script type="text/javascript" src="/assets/js/qrcode.js"></script>
+{% endblock %}
+{% block content %}
+
+    <header>
+        <div class="row">
+            <div class="col-4">
+                <span class="symbol"></span><span class="title">
+                <img src="/assets/img/icon-back.png" style="cursor:pointer;width:30px;height:30px;z-index: 1;"
+                     onclick="goto('/manage')"/>
+            </span>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <button type="button" class="DesktopShowClass btn btn2 btn-outline-dark float-right"
+                        onclick="open_add_user('f')">+ New
+                </button>
+                <button type="button" class="MobileShowClass btn btn2 btn-outline-dark btn-lg float-right"
+                        onclick="open_add_user('t')">+ New
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="MobileShowClass">
+        <hr class="mgn2"/>
+        <div id="mobile-users"></div>
+    </div>
+    <div class="DesktopShowClass">
+        <hr class="mgn2"/>
+        <div class="row mgn">
+            <div class="col-3"><b>Username</b></div>
+            <div class="col-5"><b>Roles</b></div>
+            <div class="col-2"><b>MFA</b></div>
+            <div class="col-2">&nbsp;</div>
+        </div>
+        <br/>
+        <div id="users"></div>
+    </div>
+
+{% endblock %}
+{% block modals %}
+    {% include "v2/modals/add_user.html" %}
+    {% include "v2/modals/edit_user.html" %}
+    {% include "modals/accounts/delete_user.html" %}
+{% endblock %}
+{% block bottom_scripts %}
+    <script src="/assets/v2/js/users.js"></script>
+    <script type="text/javascript">
+
+    </script>
+
+{% endblock %}

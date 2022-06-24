@@ -1,0 +1,99 @@
+{% extends "/modules/base.html" %}
+{% block title %}Profile{% endblock %}
+{% block top_scripts %}
+    <script src="/assets/js/qrcode.js"></script>
+    <script src="/assets/js/profile.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-5"><h3 style="text-align: right;">Profile</h3></div>
+        <div class="col-1"></div>
+        <div class="col-4"></div>
+    </div>
+    <hr/>
+</div>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold" style="text-align: center;">Account</h6>
+                </div>
+                <div class="card-body">
+                    Username: <input class="form-control text-display" type="text" placeholder="{{ info.username }}"
+                                     readonly>
+                    <br/>
+                    Roles: <input class="form-control text-display" type="text"
+                                  placeholder="{% for role in info.roles %}{{ role }} {% endfor %}" readonly>
+                    <br/>
+                    <button type="button" class="btn btn-primary btn-user btn-block shadow-lg profile-buttons"
+                            onClick="init_change_password()">
+                        Change Password
+                    </button>
+
+                    {% if info.mfa_enabled %}
+                        <button type="button" class="btn btn-secondary btn-user btn-block shadow-lg profile-buttons"
+                                onClick="init_disable_mfa()">
+                            Disable MFA
+                        </button>
+                    {% else %}
+                        <button type="button" class="btn btn-primary btn-user btn-block shadow-lg profile-buttons"
+                                onClick="init_enable_mfa()">
+                            Enable MFA
+                        </button>
+                    {% endif %}
+                    {% if "profile.mfa.pause" in info.perms %}
+                        <button type="button" id="pause-mfa-btn" style="width: 250px;"
+                                class="btn btn-danger btn-user btn-block shadow-lg profile-buttons"
+                                onClick="pause_mfa()">
+                            {% if info.mfa_paused %}
+                                MFA Paused Until {{ info.mfa_pause_time }}
+                            {% else %}
+                                Pause MFA
+                            {% endif %}
+                        </button>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+
+{% endblock %}
+{% block bottom_scripts %}
+    {% if "profile.mfa.pause" in info.perms %}
+        <script type="text/javascript">
+            function pause_mfa() {
+                $.ajax({
+                    url: "/api/mfa/pause",
+                    method: 'POST',
+                    beforeSend: function (xhr, settings) {
+                        xhr.setRequestHeader("X-CSRFToken", $("#csrf-token").val());
+                    },
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({}),
+                    success: function (data) {
+                        let success = data["success"]
+                        if (success) {
+                            let pause = $("#pause-mfa-btn")
+                            const until = data["until"]
+                            pause.html("Paused until " + until + "!")
+                            pause.removeClass("btn-danger")
+                            pause.addClass("btn-warning")
+                        }
+                    }
+                });
+            }
+        </script>
+    {% endif %}
+{% endblock %}
+{% block modals %}
+    {% include "modals/profile/change_password.html" %}
+    {% include "modals/profile/enable_mfa.html" %}
+    {% include "modals/profile/disable_mfa.html" %}
+{% endblock %}

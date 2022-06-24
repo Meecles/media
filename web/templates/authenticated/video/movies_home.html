@@ -1,0 +1,47 @@
+{% extends "/modules/base.html" %}
+{% block title %}Movies{% endblock %}
+{% block top_scripts %}
+<script type="text/javascript" src="/assets/js/unveil.js"></script>
+{% endblock %}
+{% block style %}
+<style>
+    .center-img {
+        max-width: 140px;
+        max-height: 320px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+    .center-txt {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+{% block modals %}
+{% include "modals/describe_movie.html" %}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-2">
+            <a href="/videos"><img src="/assets/img/icon-back.png"
+                                   style="cursor:pointer;width:30px;height:30px;z-index: 1;"/></a>
+
+        </div>
+        <div class="col-5"><h3 style="text-align: right;">Movies</h3></div>
+        <div class="col-1"></div>
+        <div class="col-4">
+            <input id="movie-search" type="text" class="form-control" placeholder="Search..." onkeyup="search()">
+        </div>
+    </div>
+    <hr/>
+</div>
+
+<div id="movie-list" class="row"></div>
+
+{% endblock %}
+{% block bottom_scripts %}
+<script type="text/javascript" src="/assets/js/movies.js"></script>
+{% endblock %}

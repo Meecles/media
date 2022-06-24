@@ -1,0 +1,29 @@
+<div class="modal fade" id="enableMfaModal" tabindex="-1" role="dialog" aria-labelledby="enableMfaModalLabel" aria-hidden="true">
+  <div class="modal-dialog change-forms" role="document">
+    <div class="modal-content change-forms">
+      <div class="modal-header">
+        <h5 class="modal-title" id="enableMfaModalLabel">Enable MFA</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+        <div id="qrcode"></div>
+        <br />
+        <span id="qr-message"></span>
+        <br />
+        <form id="mfa-input-form">
+          <input class="form-control form-control-user" type="text" id="mfa_token" placeholder="000000"></input>
+        </form>
+      </div>
+      <div id="mfa_enable_alert">
+      </div>
+      <div class="modal-footer" id="mfa_enable_footer">
+        <button class="btn btn-secondary txt-white" type="button" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary txt-white" onClick="enable_mfa()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

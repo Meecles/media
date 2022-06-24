@@ -1,0 +1,14 @@
+<nav id="menu">
+    <h2>Menu</h2>
+    <ul>
+        {% if info and ("*" in info.perms or "access.videos" in info.perms or "access.movies" in info.perms or "access.shows" in info.perms or "access.youtube" in info.perms) %}
+            <li><a href="/movies">Movies</a></li>
+            <li><a href="/shows">TV Shows</a></li>
+        {% endif %}
+        {% if info and ("*" in info.perms or "access.settings" in info.perms) %}
+            <li><a href="/manage">Manage</a></li>
+        {% endif %}
+    <li><a href="/profile">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+</nav>

@@ -1,0 +1,388 @@
+{% extends "/modules/base.html" %}
+{% block title %}Roles{% endblock %}
+{% block modals %}
+    {% include "modals/roles/add_group_content.html" %}
+    {% include "modals/roles/add_role.html" %}
+    {% include "modals/roles/edit_role.html" %}
+{% endblock %}
+{% block style %}
+    <style>
+        .sk-left {
+            transform: skew(20deg);
+        }
+
+        .sk-right {
+            transform: skew(-20deg);
+        }
+
+        .mgn {
+            margin-left: 2px;
+            margin-right: 2px;
+        }
+
+        @-webkit-keyframes wiggle {
+            0% {
+                -webkit-transform: rotateZ(2deg);
+            }
+            50% {
+                -webkit-transform: rotateZ(-2deg);
+            }
+            100% {
+                -webkit-transform: rotateZ(2deg);
+            }
+        }
+
+        @-moz-keyframes wiggle {
+            0% {
+                -moz-transform: rotateZ(2deg);
+            }
+            50% {
+                -moz-transform: rotateZ(-2deg);
+            }
+            100% {
+                -moz-transform: rotateZ(2deg);
+            }
+        }
+
+        @-o-keyframes wiggle {
+            0% {
+                -o-transform: rotateZ(2deg);
+            }
+            50% {
+                -o-transform: rotateZ(-2deg);
+            }
+            100% {
+                -o-transform: rotateZ(2deg);
+            }
+        }
+
+        @keyframes wiggle {
+            0% {
+                transform: rotateZ(2deg);
+            }
+            50% {
+                transform: rotateZ(-2deg);
+            }
+            100% {
+                transform: rotateZ(2deg);
+            }
+        }
+
+        .wiggle {
+            -webkit-animation: wiggle 0.2s ease infinite;
+            -moz-animation: wiggle 0.2s ease infinite;
+            -o-animation: wiggle 0.2s ease infinite;
+            animation: wiggle 0.2s ease infinite;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <a href="/settings"><img src="/assets/img/icon-back.png"
+                                         style="cursor:pointer;width:30px;height:30px;z-index: 1;"/></a>
+            </div>
+            <div class="col-5"><h3 style="text-align: right;">Settings - Roles</h3></div>
+            <div class="col-1"></div>
+            <div class="col-4">
+                <input id="generic-search" type="text" class="form-control" placeholder="Search..." onkeyup="search()">
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <button id="tab-roles" class="mgn sk-right btn btn-info" onclick="tab('roles')">
+                    <div class="sk-left" style="color: white;">Roles</div>
+                </button>
+                <button id="tab-video-groups" class="mgn sk-right btn btn-outline-info" onclick="tab('video_groups')">
+                    <div class="sk-left" style="color: white;">Video Groups
+                    </div>
+                </button>
+            </div>
+            <div class="col-4">
+                <button id="add-group-btn" class="mgn btn btn-primary float-right" style="display: none;"
+                        onclick="add_group()">Add Group
+                </button>
+                <button id="add-role-btn" class="mgn btn btn-primary float-right"
+                        onclick="add_role_item()">Add Role
+                </button>
+            </div>
+        </div>
+        <hr/>
+    </div>
+
+    {% include "authenticated/settings/setting_role_tab.html" %}
+    {% include "authenticated/settings/setting_vgroup_tab.html" %}
+
+{% endblock %}
+
+
+{% block bottom_scripts %}
+    <script type="text/javascript" src="/assets/js/settings-video-groups.js"></script>
+    <script type="text/javascript">
+
+        let all_roles = {}
+        let editing_role = null
+        let permission_to_add = []
+        let groups_to_add = []
+
+        function get_perm_tag(node) {
+            return `<span id="perm-node-` + node.replaceAll("*", "--star--").replaceAll(".", "--dt--") +
+                `" class="badge badge-primary" style="margin: 5px;cursor: pointer;"
+                    onclick="remove_queued_tag('` + node.replaceAll("*", "--star--").replaceAll(".", "--dt--") + `')">` + node + `</span>`
+        }
+
+        function remove_queued_tag(node) {
+            node = node.replaceAll("*", "--star--").replaceAll(".", "--dt--")
+            console.log("Removing " + node)
+            $("#perm-node-" + node).remove()
+            node = node.replaceAll("--star--", "*").replaceAll("--dt--", ".")
+            if (permission_to_add.includes(node)) {
+                for (let i = 0; i < permission_to_add.length; i++) {
+                    if (permission_to_add[i] === node) {
+                        permission_to_add.splice(i, 1);
+                    }
+                }
+            }
+        }
+
+        function remove_queued_vgroup(group_id) {
+            $("#vgroup-" + group_id).remove()
+            if (groups_to_add.includes(group_id)) {
+                for (let i = 0; i < groups_to_add.length; i++) {
+                    if (groups_to_add[i] === group_id) {
+                        groups_to_add.splice(i, 1);
+                    }
+                }
+            }
+        }
+
+        function get_vgroup_tag(uid, tag) {
+            return `<span id="vgroup-` + uid + `" class="badge badge-info" style="margin: 5px;cursor: pointer;"
+                        onclick="remove_queued_vgroup('` + uid + `')">` + tag + `</span>`
+        }
+
+        function queue_permission(permission) {
+            const _plist = $("#list-permissions")
+            if (!permission_to_add.includes(permission)) {
+                _plist.append(get_perm_tag(permission))
+                permission_to_add.push(permission)
+            }
+        }
+
+        function queue_video_group(gid, tag) {
+            const _glist = $("#list-video-groups")
+            if (!groups_to_add.includes(gid)) {
+                _glist.append(get_vgroup_tag(gid, tag))
+                groups_to_add.push(gid)
+            }
+        }
+
+        function save_role_queue() {
+            if (editing_role == null){
+                return
+            }
+            const toSend = {
+                "id": editing_role,
+                "permissions": permission_to_add,
+                "video_groups": groups_to_add
+            }
+            $.ajax({
+                url: "/api/roles/edit",
+                method: 'POST',
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", $("#csrf-token").val());
+                },
+                dataType: "json",
+                data: JSON.stringify(toSend),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    let success = data.success;
+                    if (success) {
+                        permission_to_add = []
+                        groups_to_add = []
+                        load_roles()
+                        $("#editRoleModal").modal("hide")
+                    }
+
+                }
+            });
+        }
+
+        function open_edit_role(uid) {
+            editing_role = uid
+            const _plist = $("#list-permissions")
+            const _glist = $("#list-video-groups")
+            _plist.html("")
+            _glist.html("")
+            const role = all_roles[uid]
+            const permissions = role["permissions"]
+            const vgroups = role["video_groups"]
+            permissions.forEach(function (permission) {
+                permission_to_add.push(permission)
+                _plist.append(get_perm_tag(permission))
+            })
+            Object.keys(vgroups).forEach(function (group_id) {
+                const name = vgroups[group_id]
+                groups_to_add.push(group_id)
+                _glist.append(get_vgroup_tag(group_id, name))
+            })
+            const _vgroup_dd = $("#video-group-dropdown")
+            _vgroup_dd.html("")
+            video_groups.forEach(function (group) {
+                const gid = group["_id"]
+                const name = group["name"]
+                _vgroup_dd.append(`<p class="dropdown-item" style="cursor: pointer;"
+                    onclick="queue_video_group('` + gid + `', '` + name + `')">` + name + `</p>`)
+            })
+            $("#editRoleModalLabel").html("Edit Role - " + uid)
+            $("#editRoleModal").modal("show")
+        }
+
+        function delete_role() {
+            const uid = editing_role
+            $.ajax({
+                url: "/api/roles/" + uid,
+                method: 'DELETE',
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", $("#csrf-token").val());
+                },
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    let success = data.success;
+                    if (success) {
+                        $("#generic-search").val()
+                        editing_role = null
+                        load_roles()
+                        $("#editRoleModal").modal("hide")
+                    } else {
+                        console.log(data["reason"])
+                    }
+                }
+            });
+        }
+
+        function add_role_queue() {
+            const name = $("#add-role-box").val()
+            const toSend = {"id": name}
+            $.ajax({
+                url: "/api/roles/add",
+                method: 'POST',
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", $("#csrf-token").val());
+                },
+                dataType: "json",
+                data: JSON.stringify(toSend),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    let success = data.success;
+                    if (success) {
+                        $("#generic-search").val()
+                        load_roles()
+                        $("#addRoleModal").modal("hide")
+                    }
+                }
+            });
+        }
+
+        function add_role_item() {
+            $("#add-role-box").val("")
+            $("#addRoleModal").modal("show")
+        }
+
+        function get_role_line(role_id) {
+            const role = all_roles[role_id]
+            let perm_line = ""
+            let group_line = ""
+            const perms = role["permissions"]
+            const max = 5
+            for (let i = 0; i < perms.length; i++) {
+                if (i >= max) {
+                    let count = perms.length - max
+                    perm_line = perm_line + `<span class="badge badge-secondary" ` +
+                        `style="margin-left: 2px; margin-right: 2px;">+ ` + count + ` more</span>`
+                    break
+                }
+                const perm = perms[i]
+                perm_line = perm_line + `<span class="badge badge-primary" ` +
+                    `style="margin-left: 2px; margin-right: 2px;">` + perm + `</span>`
+            }
+
+            const groups = role["video_groups"]
+            Object.keys(groups).forEach(function (key) {
+                const name = groups[key]
+                group_line = group_line + `<span class="badge badge-info" ` +
+                    `style="margin-left:2px; margin-right: 2px;">` + name + `</span>`
+            })
+
+            let line = `<div class="alert alert-primary" role="alert">
+                <div class="row">
+                    <div class="col-3 alert-primary">` + role_id + `</div>
+                    <div class="col-3">` + perm_line + `</div>
+                    <div class="col-4 float-right">` + group_line + `</div>
+                    <div class="col-2">
+                        <img class="float-right" src="/assets/img/edit-button.svg" style="cursor: pointer"
+                            onclick="open_edit_role('` + role_id + `')"/>
+                    </div>
+                </div>
+            </div>`
+            return line
+        }
+
+        function list_roles() {
+            if (active_tab !== "roles")
+                return;
+
+            const _search = $("#generic-search")
+            const _role_list = $("#role-list")
+            _role_list.html("")
+            Object.keys(all_roles).forEach(function (key) {
+                let search_val = _search.val().toLowerCase()
+                if (search_val.length < 1 || (key.toLowerCase().includes(search_val))) {
+                    _role_list.append(get_role_line(key))
+                }
+            })
+        }
+
+        function load_roles() {
+            $.ajax({
+                url: "/api/roles/list?h=y&g=y",
+                method: 'GET',
+                beforeSend: function (xhr, settings) {
+                    xhr.setRequestHeader("X-CSRFToken", $("#csrf-token").val());
+                },
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    let success = data.success;
+                    if (success) {
+                        const roles = data["roles"]
+                        all_roles = {}
+                        roles.forEach(function (role) {
+                            const role_id = role["_id"]
+                            all_roles[role_id] = role
+                            list_roles()
+                        })
+                    }
+                }
+            });
+        }
+
+        $("#editRoleModal").on('hidden.bs.modal', function () {
+            permission_to_add = []
+            groups_to_add = []
+            editing_role = null
+        });
+        $(document).ready(function () {
+            load_roles()
+            load_video_groups()
+            $(".container-video-groups").hide()
+            modal_content()
+        })
+    </script>
+{% endblock %}

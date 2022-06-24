@@ -1,0 +1,61 @@
+<div class="modal fade" id="editRoleModal" tabindex="-1" role="dialog"
+     aria-labelledby="editRoleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="btn-group" style="max-width: 90%;">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                -- Select Permission --
+                            </button>
+                            <div class="dropdown-menu">
+                                {% for permission in permissions %}
+                                    <p class="dropdown-item" style="cursor: pointer;"
+                                       onclick="queue_permission('{{ permission.name }}')">{{ permission.name }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="btn-group dropdown-menu-right float-right">
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                -- Select Video Group --
+                            </button>
+                            <div class="dropdown-menu" id="video-group-dropdown"></div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-6" id="list-permissions"></div>
+                    <div class="col-6" id="list-video-groups"></div>
+                </div>
+
+            </div>
+            <div class="modal-footer" id="edit-role-footer" style="width: 100%;">
+                <div class="row" style="width: 100%;">
+                    <div class="col-4">
+                        <button class="btn btn-outline-danger float-left" type="button" onclick="delete_role()">Delete
+                        </button>
+                    </div>
+                    <div class="col-8">
+                        <button type="button" class="btn btn-primary float-right" onclick="save_role_queue()"
+                                style="margin-left: 5px;">Save
+                        </button>
+                        <button class="btn btn-secondary float-right" type="button" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+{% extends "v2/modules/base.html" %}
+{% block style %}
+    <link rel="stylesheet" href="/assets/v2/css/manage_videos.css">
+    <style>
+        .thumb {
+            width: 200px;
+            height: 300px;
+            object-fit: contain;
+        }
+
+        .btn {
+            border-radius: 0;
+            letter-spacing: 0.09em;
+        }
+
+        .item {
+            border-bottom: 1pt solid #7d7d7d;
+            margin-left: 3%;
+        }
+
+        .item2 {
+            border-bottom: 1pt solid #7d7d7d;
+            margin-right: 5%;
+        }
+    </style>
+{% endblock %}
+{% block priority_scripts %}
+    <link rel="stylesheet" href="/assets/cdn/bootstrap.4.5.3.min.css">
+{% endblock %}
+{% block top_scripts %}
+    <script src="/assets/v2/js/sort_util.js"></script>
+    <script src="/assets/cdn/bootstrap.bundle.4.5.3.min.js"></script>
+{% endblock %}
+{% block content %}
+
+    <header>
+        <div class="row">
+            <div class="col-4">
+                <span class="symbol"></span><span class="title">
+                <img src="/assets/img/icon-back.png" style="cursor:pointer;width:30px;height:30px;z-index: 1;"
+                     onclick="goto('/manage')"/>
+            </span>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <input class="form-control" type="text" id="search" placeholder="Search..." onkeyup="search()">
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-4">
+                <button class="btn btn-outline-dark txt-white float-right MobileShowClass" onclick="open_add_dialogue('show')">+ Add
+                    Show
+                </button>
+            </div>
+            <div class="col-8">
+                <button class="btn btn-outline-dark txt-white float-right DesktopShowClass" onclick="open_add_dialogue('show')">+ Add
+                    Show
+                </button>
+                <button class="btn btn-outline-dark txt-white float-right DesktopShowClass" style="margin-right: 9px;"
+                        onclick="open_add_dialogue('movie')">+ Add Movie
+                </button>
+                <button class="btn btn-outline-dark txt-white float-right MobileShowClass" style="margin-right: 9px;"
+                        onclick="open_add_dialogue('movie')">+ Add Movie
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="MobileShowClass">
+        <div class="row item">
+            <div class="col-5" id="movie-counts">Movies</div>
+            <div class="col-1"></div>
+            <div class="col-6" id="show-counts">TV Shows</div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-5" id="mobile-movie-list">
+            </div>
+            <div class="col-1"></div>
+            <div class="col-6" id="mobile-show-list"></div>
+        </div>
+    </div>
+    <div class="DesktopShowClass">
+        <div class="row item">
+            <div class="col-5" id="movie-counts">Movies</div>
+            <div class="col-1"></div>
+            <div class="col-6" id="show-counts">TV Shows</div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-5" id="movie-list">
+            </div>
+            <div class="col-1"></div>
+            <div class="col-6" id="show-list"></div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block bottom_scripts %}
+    <script type="text/javascript" src="/assets/v2/js/manage_video_home.js"></script>
+{% endblock %}
+{% block modals %}
+    {% include "v2/modals/add_movie.html" %}
+    {% include "v2/modals/add_show.html" %}
+    {% include "v2/modals/edit_movie.html" %}
+{% endblock %}

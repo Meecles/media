@@ -1,0 +1,38 @@
+{% extends "v2/modules/base.html" %}
+{% block style %}
+    <style>
+        .thumb {
+            width: 200px;
+            height: 300px;
+            object-fit: contain;
+        }
+
+        .btn {
+            border-radius: 0;
+        }
+    </style>
+{% endblock %}
+{% block priority_scripts %}
+    <link rel="stylesheet" href="/assets/cdn/bootstrap.4.5.3.min.css">
+{% endblock %}
+{% block top_scripts %}
+    <script type="text/javascript" src="/assets/js/unveil.js"></script>
+    <script src="/assets/cdn/bootstrap.bundle.4.5.3.min.js"></script>
+{% endblock %}
+{% block bottom_scripts %}
+    <script type="text/javascript" src="/assets/v2/js/show_home.js"></script>
+{% endblock %}
+{% block content %}
+    <header>
+        <div class="row">
+            <div class="col-4">
+                <span class="symbol"></span><span class="title"><h2>TV Shows</h2></span>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <input type="text" id="show-search" placeholder="Search..." onkeyup="search()"/>
+            </div>
+        </div>
+    </header>
+    <section class="tiles" id="show-list"></section>
+{% endblock %}

@@ -1,0 +1,275 @@
+<style>
+
+    .btn-outline-danger {
+    {% if theme %}
+        color: {{ theme.btn.outline_danger }};
+        border-color: {{ theme.btn.outline_danger }};
+    {% else %}
+        color: #bf0031;
+        border-color: #bf0031;
+    {% endif %}
+        border-radius: 0;
+    }
+
+    .btn-danger {
+    {% if theme %}
+        color: {{ theme.btn.danger_text }};
+        background-color: {{ theme.btn.danger }};
+        border-color: {{ theme.btn.danger }};
+    {% else %}
+        color: #fff;
+        background-color: #bf0031;
+        border-color: #bf0031;
+    {% endif %}
+        border-radius: 0;
+    }
+
+    .btn-primary {
+    {% if theme %}
+        color: {{ theme.btn.primary_text }};
+        background-color: {{ theme.btn.primary }};
+        border-color: {{ theme.btn.primary }};
+    {% else %}
+        color: #fff;
+        background-color: #3039f9;
+        border-color: #3039f9;
+    {% endif %}
+        border-radius: 0;
+    }
+
+    .btn-outline-primary {
+    {% if theme %}
+        color: {{ theme.btn.outline_primary }};
+        border-color: {{ theme.btn.outline_primary }};
+    {% else %}
+        color: #3039f9;
+        border-color: #3039f9;
+    {% endif %}
+        border-radius: 0;
+    }
+
+    .btn-info {
+    {% if theme %}
+        color: {{ theme.btn.info_text }};
+        background-color: {{ theme.btn.info }};
+        border-color: {{ theme.btn.info }};
+    {% else %}
+        color: #fff;
+        background-color: #00c7e6;
+        border-color: #00c7e6;
+    {% endif %}
+        border-radius: 0;
+    }
+
+    .btn-outline-info {
+    {% if theme %}
+        color: {{ theme.btn.outline_info }};
+        border-color: {{ theme.btn.outline_info }};
+    {% else %}
+        color: #00c7e6;
+        border-color: #00c7e6;
+    {% endif %}
+        border-radius: 0;
+    }
+
+    .btn-light {
+    {% if theme %}
+        color: {{ theme.btn.light_text }};
+        border-color: {{ theme.btn.light }};
+        background-color: {{ theme.btn.light }};
+    {% else %}
+        color: #000;
+        border-color: #f8f9fa;
+        background-color: #f8f9fa;
+    {% endif %}
+        border-radius: 0;
+    }
+
+    .btn-outline-light {
+    {% if theme %}
+        color: {{ theme.btn.outline_light }};
+        border-color: {{ theme.btn.outline_light }};
+    {% else %}
+        color: #f8f9fa;
+        border-color: #f8f9fa;
+    {% endif %}
+        border-radius: 0;
+    }
+
+    .btn-secondary {
+    {% if theme %}
+        color: {{ theme.btn.secondary_text }};
+        background-color: {{ theme.btn.secondary }};
+        border-color: {{ theme.btn.secondary }};
+    {% else %}
+        color: #fff;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    {% endif %}
+        border-radius: 0;
+    }
+
+    .btn-outline-secondary {
+    {% if theme %}
+        color: {{ theme.btn.outline_secondary }};
+        border-color: {{ theme.btn.outline_secondary }};
+    {% else %}
+        color: #6c757d;
+        border-color: #6c757d;
+    {% endif %}
+        border-radius: 0;
+    }
+
+    .btn-success {
+    {% if theme %}
+        color: {{ theme.btn.success_text }};
+        background-color: {{ theme.btn.success }};
+        border-color: {{ theme.btn.success }};
+    {% else %}
+        color: #fff;
+        background-color: #36b37e;
+        border-color: #36b37e;
+    {% endif %}
+        border-radius: 0;
+    }
+
+    .btn-outline-success {
+    {% if theme %}
+        color: {{ theme.btn.outline_success }};
+        border-color: {{ theme.btn.outline_success }};
+    {% else %}
+        color: #36b37e;
+        border-color: #36b37e;
+    {% endif %}
+        border-radius: 0;
+    }
+
+    .btn-outline-success:hover {
+    {% if theme %}
+        color: {{ theme.btn.success_text }};
+        background-color: {{ theme.btn.outline_success_hover }};
+        border-color: {{ theme.btn.outline_success_hover }};
+    {% else %}
+        color: #fff;
+        background-color: #57d983;
+        border-color: #57d983;
+    {% endif %}
+    }
+
+    .badge-primary {
+    {% if theme %}
+        color: {{ theme.badge.primary_text }};
+        background-color: {{ theme.badge.primary }};
+    {% else %}
+        color: #fff;
+        background-color: #007bff;
+    {% endif %}
+    border-radius: 0;
+    }
+
+    .badge-info {
+    {% if theme %}
+        color: {{ theme.badge.info_text }};
+        background-color: {{ theme.badge.info }};
+    {% else %}
+        color: #fff;
+        background-color: #17a2b8;
+    {% endif %}
+    border-radius: 0;
+    }
+
+    .badge-danger {
+    {% if theme %}
+        color: {{ theme.badge.danger_text }};
+        background-color: {{ theme.badge.danger }};
+    {% else %}
+        color: #fff;
+        background-color: #bf0031;
+    {% endif %}
+    border-radius: 0;
+    }
+
+    .nav-icon-header {
+        max-height: 45px;
+        max-width: 45px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .nav-icon {
+        max-height: 28px;
+        max-width: 40px;
+        width: 50px;
+        height: 35px;
+    }
+
+    .card {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+    {% if theme %}
+        background-color: {{ theme.card.background }};
+    {% else %}
+        background-color: #102a43;
+    {% endif %}
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, .125);
+        border-radius: .25rem;
+    }
+
+    .card-title {
+        margin-bottom: .75rem;
+    {% if theme %}
+        color: {{ theme.card.title }};
+    {% else %}
+        color: #9fb3c8;
+    {% endif %}
+    }
+
+    h1, h2, h3, h4, h5, h6, p, div {
+    {% if theme %}
+        color: {{ theme.h_tags }};
+    {% else %}
+        color: #9fb3c8;
+    {% endif %}
+    }
+
+    div {
+    {% if theme %}
+        color: {{ theme.div }};
+    {% else %}
+        color: #9fb3c8;
+    {% endif %}
+    }
+
+    p {
+    {% if theme %}
+        color: {{ theme.p }};
+    {% else %}
+        color: #9fb3c8;
+    {% endif %}
+    }
+
+    .modal-content {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        width: 100%;
+        pointer-events: auto;
+    {% if theme %}
+        background-color: {{ theme.modal_background }};
+    {% else %}
+        background-color: #486581;
+    {% endif %}
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, .2);
+        border-radius: .3rem;
+        outline: 0;
+    }
+</style>

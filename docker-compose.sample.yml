@@ -1,0 +1,26 @@
+# Copy this file to docker-compose.yml and adjust the required values below
+version: '3'
+services:
+    media_suite_mongo:
+      image: mongo:latest
+      volumes:
+        - ../db_data:/data/db
+# You can remove the ports section if you don't want direct / external DB access
+      ports:
+        - 27017:27017
+      logging:
+        driver: none
+    media_suite_web:
+      image: media_suite_web
+      build: web
+      environment:
+        - MONGO_HOST=media_suite_mongo
+        - WEB_HOST=all
+      ports:
+        - 9090:8080
+      volumes:
+        - ./:/root/
+# Update these paths
+        - /path/to/thumbs/:/suite/thumbs/
+        - /path/to/movies/:/suite/movies/
+        - /path/to/tv_shows/:/suite/shows/

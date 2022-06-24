@@ -1,0 +1,19 @@
+@media (max-width: 999.98px) {
+    .DesktopShowClass {
+        display: none;
+    }
+
+    .MobileShowClass {
+        display: initial;
+    }
+}
+
+@media (min-width: 1000px) {
+    .DesktopShowClass {
+        display: initial;
+    }
+
+    .MobileShowClass {
+        display: none;
+    }
+}

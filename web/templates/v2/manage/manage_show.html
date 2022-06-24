@@ -1,0 +1,171 @@
+{% extends "v2/modules/base.html" %}
+{% block style %}
+    <link rel="stylesheet" href="/assets/v2/css/manage_videos.css">
+    <style>
+        .card {
+            background-color: #0c1663;
+        }
+
+        .form-control:disabled, .form-control[readonly] {
+            background-color: #050613;
+            opacity: 1;
+        }
+
+        textarea.form-control {
+            height: auto;
+            background-color: #050613;
+        }
+
+        .thumb {
+            width: 200px;
+            height: 300px;
+            object-fit: contain;
+        }
+
+        .btn {
+            border-radius: 0;
+            letter-spacing: 0.09em;
+        }
+
+        .item {
+            border-bottom: 1pt solid #7d7d7d;
+            margin-left: 3%;
+        }
+
+        .item2 {
+            border-bottom: 1pt solid #7d7d7d;
+            margin-right: 5%;
+        }
+    </style>
+{% endblock %}
+{% block priority_scripts %}
+    <link rel="stylesheet" href="/assets/cdn/bootstrap.4.5.3.min.css">
+{% endblock %}
+{% block top_scripts %}
+    <script src="/assets/v2/js/sort_util.js"></script>
+    <script src="/assets/cdn/bootstrap.bundle.4.5.3.min.js"></script>
+{% endblock %}
+{% block content %}
+
+    <header>
+        <div class="row">
+            <div class="col-4">
+                <span class="symbol"></span><span class="title">
+                <img src="/assets/img/icon-back.png" style="cursor:pointer;width:30px;height:30px;z-index: 1;"
+                     onclick="goto('/manage/video')"/>
+            </span>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4">
+
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-8">
+
+            </div>
+        </div>
+    </header>
+
+    <div class="MobileShowClass">
+        <h3>Support for small screens doesn't exist yet</h3>
+
+    </div>
+    <div class="DesktopShowClass">
+        <div class="row">
+            <div class="col-5">
+
+                <div class="card-body">
+                    <div class="row" style="margin-bottom: -5px;">
+                        <div class="col-6">
+                            <h5 class="card-title">Generic Settings</h5>
+                        </div>
+                        <div class="col-6">
+                            <button id="edit-generic-btn" type="button"
+                                    class="btn btn-sm btn-outline-dark sq float-right txt-white"
+                                    onclick="enable_editing()">Edit
+                            </button>
+                            <button id="save-generic-btn" type="button"
+                                    class="btn btn-sm btn-outline-success sq float-right txt-white"
+                                    onclick="save_editing()">Save
+                            </button>
+                            <button id="cancel-generic-btn" type="button"
+                                    class="btn btn-sm btn-outline-danger sq float-right txt-white"
+                                    onclick="cancel_edit()" style="margin-right: 10px;">Cancel
+                            </button>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row set">
+                        <div class="col-4">
+                            <b>Name:</b>
+                        </div>
+                        <div class="col-8">
+                            <input id="edit-name" type="text" class="form-control sq float-right" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="row set">
+                        <div class="col-4">
+                            <b>Description:</b>
+                        </div>
+                        <div class="col-8">
+                    <textarea id="edit-description" type="text" class="form-control sq float-right"
+                              placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="row set">
+                        <div class="col-4">
+                            <b>Thumbnail:</b>
+                        </div>
+                        <div class="col-8">
+                            <input id="edit-thumb" type="text" class="form-control sq float-right"
+                                   placeholder="Thumbnail">
+                        </div>
+                    </div>
+                    <div class="row set">
+                        <div class="col-4">
+                            <b>Base Path:</b>
+                        </div>
+                        <div class="col-8">
+                            <input id="edit-base-path" type="text" class="form-control sq float-right"
+                                   placeholder="Base Path">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-7">
+
+                <div class="card-body">
+                    <div class="row" style="margin-bottom: -5px;">
+                        <div class="col-6">
+                            <h5 class="card-title">Seasons</h5>
+                        </div>
+                        <div class="col-6">
+                            <button id="add-season-btn" type="button"
+                                    class="btn btn-sm btn-outline-dark sq float-right txt-white"
+                                    onclick="open_add_season()">Add Season
+                            </button>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div id="season-list">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block modals %}
+    {% include "v2/modals/add_season.html" %}
+{% endblock %}
+{% block bottom_scripts %}
+    <script type="text/javascript">
+        const _show_id = "{{ show._id }}"
+    </script>
+    <script type="text/javascript" src="/assets/v2/js/manage_show.js"></script>
+{% endblock %}
